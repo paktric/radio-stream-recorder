@@ -4,8 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.FileOutputStream;
 import java.io.File;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
+
 
 public class recorder {
     private static String streamURL = "https://wxpnhi.xpn.org/xpnhi-nopreroll";
@@ -17,27 +19,24 @@ public class recorder {
             InputStream is = conn.getInputStream();
             OutputStream outstream = new FileOutputStream(new File(outputPath));
             byte[] buffer = new byte[4096];
-            int len;
-            long t = System.currentTimeMillis();
-            long endTime = t + Math.round(5 * 1000 * .95);
+            int len = 0;
 
-            System.out.println("Program initialized, recording started...");
+            LocalDateTime start = LocalDateTime.of(2022, Month.AUGUST, 19, 23, 0);
+            LocalDateTime   end = LocalDateTime.of(2022, Month.AUGUST, 20, 2, 0);
 
-            while ((len = is.read(buffer)) > 0 && System.currentTimeMillis() <= endTime) {
-                outstream.write(buffer, 0, len);
-                //System.out.print(".");
+            System.out.println();
+            System.out.println("   Current time: " + LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
+            System.out.println("Scheduled Start: " + start);
+            System.out.println("  Scheduled End: " + end);
+
+            // Record within the start/end window
+            while (end.isAfter(LocalDateTime.now())) {
+                while ((len = is.read(buffer)) > 0 && start.isBefore(LocalDateTime.now()) && end.isAfter(LocalDateTime.now())) {
+                    outstream.write(buffer, 0, len);
+                }
             }
-
             outstream.close();
-            System.out.println("Recording complete");
-
-
-
-            Date t1 = new Date();
-            Date t2 = new Date(122, 7,17, 13,35);
-
-            System.out.println(t1);
-            System.out.println(t2);
+            System.out.println("\nRecording complete: " + outputPath);
 
         }
         catch(Exception e){
