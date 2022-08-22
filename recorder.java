@@ -10,37 +10,46 @@ import java.time.temporal.ChronoUnit;
 
 
 public class recorder {
-    private static String streamURL = "https://wxpnhi.xpn.org/xpnhi-nopreroll";
-    private static String outputPath = "C:/Users/Paktric/Desktop/output_" + System.currentTimeMillis() + ".mp3";
-
     public static void main(String[] args) {
         try{
+            // User editable variables
+            String streamURL = "https://wxpnhi.xpn.org/xpnhi-nopreroll";
+            String saveDirectory = "C:/Users/Paktric/Desktop/";
+            String radioProgramName = "IndieRockHP";
+            LocalDateTime startTime = LocalDateTime.of(2022, Month.AUGUST, 22, 15, 45);
+            int recordingDuration = 0;
+
+            // Program variables
+            LocalDateTime endTime = startTime.plusHours(recordingDuration).plusMinutes(1);
+            String recordingDate = startTime.toString().substring(0,10);
+            String outputPath = saveDirectory + radioProgramName + "_" + recordingDate + ".mp3";
+
+            // I/O variables
             URLConnection conn = new URL(streamURL).openConnection();
-            InputStream is = conn.getInputStream();
-            OutputStream outstream = new FileOutputStream(new File(outputPath));
+            InputStream inStream = conn.getInputStream();
+            OutputStream outStream = new FileOutputStream(new File(outputPath));
             byte[] buffer = new byte[4096];
             int len = 0;
 
-            LocalDateTime start = LocalDateTime.of(2022, Month.AUGUST, 19, 23, 0);
-            LocalDateTime   end = LocalDateTime.of(2022, Month.AUGUST, 20, 2, 0);
+            ///////////////////////////////////////////////////////////////////////////////////////
 
             System.out.println();
             System.out.println("   Current time: " + LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
-            System.out.println("Scheduled Start: " + start);
-            System.out.println("  Scheduled End: " + end);
+            System.out.println("Scheduled Start: " + startTime);
+            System.out.println("  Scheduled End: " + endTime);
 
-            // Record within the start/end window
-            while (end.isAfter(LocalDateTime.now())) {
-                while ((len = is.read(buffer)) > 0 && start.isBefore(LocalDateTime.now()) && end.isAfter(LocalDateTime.now())) {
-                    outstream.write(buffer, 0, len);
+            // Record within the startTime/endTime window
+            while (endTime.isAfter(LocalDateTime.now())) {
+                while ((len = inStream.read(buffer)) > 0 && startTime.isBefore(LocalDateTime.now()) && endTime.isAfter(LocalDateTime.now())) {
+                    outStream.write(buffer, 0, len);
                 }
             }
-            outstream.close();
+            outStream.close();
             System.out.println("\nRecording complete: " + outputPath);
 
         }
         catch(Exception e){
-            System.out.print("Exception thrown: " + e);
+            System.out.print("Error while trying to record.\nException: " + e);
         }
     }
 }
