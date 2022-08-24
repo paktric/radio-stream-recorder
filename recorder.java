@@ -16,12 +16,12 @@ public class recorder {
             String streamURL = "https://wxpnhi.xpn.org/xpnhi-nopreroll";
             String saveDirectory = "C:/Users/Paktric/Desktop/";
             String radioProgramName = "IndieRockHP";
-            LocalDateTime startTime = LocalDateTime.of(2022, Month.AUGUST, 22, 15, 45);
+            LocalDateTime startTime = LocalDateTime.of(2022, Month.AUGUST, 23, 20, 34);
             int recordingDuration = 0;
 
             // Program variables
             LocalDateTime endTime = startTime.plusHours(recordingDuration).plusMinutes(1);
-            String recordingDate = startTime.toString().substring(0,10);
+            String recordingDate = startTime.toLocalDate().toString();
             String outputPath = saveDirectory + radioProgramName + "_" + recordingDate + ".mp3";
 
             // I/O variables
