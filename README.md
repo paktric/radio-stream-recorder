@@ -26,7 +26,8 @@ The idea for this project comes from my brother-in-law, whose recent fatherhood 
 # Development Process
 ### Technologies Used
 - Java
-- NetBeans IDE / SceneBuilder
+- NetBeans IDE, SceneBuilder
+- GitHub for version control
 
 ### Implementation
 The first step in this project was exploring the radio host's website to learn how the audio streaming works. At the top of the website, there is a play/pause button that allows the user to listen to the radio station through their browser. With Chrome Developer Tools open, I pressed the 'play' button and reviewed the console events. I was able to find the stream URL that was called when the play button event was triggered. Opening this URL in a separate tab reveals a page with a single HTML video element with a type of "audio/mpeg". I found my target URL!
