@@ -16,8 +16,8 @@ public class Record {
             String saveDirectory = "C:\\Users\\Paktric\\Programming\\RadioRecorder\\recordings\\";
             String radioProgramName = "IndieRockHP";
             LocalDateTime startTime = LocalDateTime.now();
-            int recordingDurationHours = 0;
-            int recordingDurationMinutes = 1;
+            int recordingDurationHours = 1;         // change duration here
+            int recordingDurationMinutes = 30;      // change duration here
 
             // Program variables
             LocalDateTime endTime = startTime.plusHours(recordingDurationHours).plusMinutes(recordingDurationMinutes);
