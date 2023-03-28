@@ -66,7 +66,8 @@ public class Recorder {
                                 " |_|  \\___|\\___\\___/|_|  \\__,_|\\___|_|\n"  +
                                 " Made with love by Patrick Moran, 2023\n\n");
 
-            System.out.printf(" Starting scheduled recording (%s)...",
+            System.out.printf(" Starting scheduled recording for %s (%s)...",
+                    radioProgramName,
                     startTime.truncatedTo(ChronoUnit.MINUTES));
 
             // Record until endTime is reached

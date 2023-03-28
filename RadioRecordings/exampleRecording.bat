@@ -1,6 +1,6 @@
 @ECHO OFF
 cd C:\Users\Paktric\Documents\RadioRecordings
-REM javac Recorder.java
+javac Recorder.java
 
 REM args[]: hours, minutes, streamURL, saveDir, programName
 java Recorder 0 5 https://wxpnhi.xpn.org/xpnhi-nopreroll C:\Users\Paktric\Documents\RadioRecordings\InProgressRecordings\ IndieRockHP
